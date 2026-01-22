@@ -1,0 +1,211 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-01-21",
+  "enforcement_mode": "STRICT",
+  "allowed_commands": [
+    {
+      "command": "python",
+      "description": "Python interpreter",
+      "risk_level": "MEDIUM",
+      "requires_approval": false,
+      "allowed_args": ["-m", "-c", "--version", "-V"],
+      "blocked_args": ["-m http.server", "--inspect"]
+    },
+    {
+      "command": "pip",
+      "description": "Python package manager",
+      "risk_level": "MEDIUM",
+      "requires_approval": false,
+      "allowed_args": ["install", "list", "show", "freeze", "--version", "-r"],
+      "blocked_args": ["uninstall", "config"]
+    },
+    {
+      "command": "pytest",
+      "description": "Python test runner",
+      "risk_level": "LOW",
+      "requires_approval": false,
+      "allowed_args": ["-v", "-x", "--cov", "-k", "-m"],
+      "blocked_args": []
+    },
+    {
+      "command": "git",
+      "description": "Version control",
+      "risk_level": "LOW",
+      "requires_approval": false,
+      "allowed_args": ["status", "log", "diff", "show", "branch", "add", "commit", "push", "pull", "clone"],
+      "blocked_args": ["reset --hard", "clean -fd", "gc --prune=now"]
+    },
+    {
+      "command": "ls",
+      "description": "List directory contents",
+      "risk_level": "LOW",
+      "requires_approval": false,
+      "allowed_args": ["-la", "-l", "-a", "-h"],
+      "blocked_args": []
+    },
+    {
+      "command": "cat",
+      "description": "Display file contents",
+      "risk_level": "LOW",
+      "requires_approval": false,
+      "allowed_args": [],
+      "blocked_args": ["/etc/passwd", "/etc/shadow", "~/.ssh"]
+    },
+    {
+      "command": "grep",
+      "description": "Search text patterns",
+      "risk_level": "LOW",
+      "requires_approval": false,
+      "allowed_args": ["-i", "-r", "-n", "-v", "-E"],
+      "blocked_args": []
+    },
+    {
+      "command": "echo",
+      "description": "Print text",
+      "risk_level": "LOW",
+      "requires_approval": false,
+      "allowed_args": [],
+      "blocked_args": []
+    },
+    {
+      "command": "mkdir",
+      "description": "Create directories",
+      "risk_level": "LOW",
+      "requires_approval": false,
+      "allowed_args": ["-p"],
+      "blocked_args": []
+    },
+    {
+      "command": "touch",
+      "description": "Create empty files",
+      "risk_level": "LOW",
+      "requires_approval": false,
+      "allowed_args": [],
+      "blocked_args": []
+    },
+    {
+      "command": "mypy",
+      "description": "Static type checker",
+      "risk_level": "LOW",
+      "requires_approval": false,
+      "allowed_args": ["--strict", "--ignore-missing-imports"],
+      "blocked_args": []
+    },
+    {
+      "command": "ruff",
+      "description": "Python linter",
+      "risk_level": "LOW",
+      "requires_approval": false,
+      "allowed_args": ["check", "format", "--fix"],
+      "blocked_args": []
+    },
+    {
+      "command": "black",
+      "description": "Code formatter",
+      "risk_level": "LOW",
+      "requires_approval": false,
+      "allowed_args": ["--check", "--diff"],
+      "blocked_args": []
+    }
+  ],
+  "blocked_commands": [
+    {
+      "command": "rm",
+      "description": "Remove files or directories",
+      "reason": "Data destruction risk",
+      "severity": "CRITICAL"
+    },
+    {
+      "command": "rmdir",
+      "description": "Remove directories",
+      "reason": "Data destruction risk",
+      "severity": "CRITICAL"
+    },
+    {
+      "command": "sudo",
+      "description": "Superuser execution",
+      "reason": "Privilege escalation",
+      "severity": "CRITICAL"
+    },
+    {
+      "command": "su",
+      "description": "Switch user",
+      "reason": "Privilege escalation",
+      "severity": "CRITICAL"
+    },
+    {
+      "command": "chmod",
+      "description": "Change file permissions",
+      "reason": "Security bypass risk",
+      "severity": "HIGH"
+    },
+    {
+      "command": "chown",
+      "description": "Change file ownership",
+      "reason": "Privilege escalation",
+      "severity": "CRITICAL"
+    },
+    {
+      "command": "kill",
+      "description": "Terminate processes",
+      "reason": "System modification",
+      "severity": "HIGH"
+    },
+    {
+      "command": "shutdown",
+      "description": "Shutdown system",
+      "reason": "System modification",
+      "severity": "CRITICAL"
+    },
+    {
+      "command": "reboot",
+      "description": "Reboot system",
+      "reason": "System modification",
+      "severity": "CRITICAL"
+    },
+    {
+      "command": "dd",
+      "description": "Disk duplicator",
+      "reason": "Data destruction risk",
+      "severity": "CRITICAL"
+    },
+    {
+      "command": "nc",
+      "description": "Netcat network tool",
+      "reason": "Network backdoor risk",
+      "severity": "CRITICAL"
+    },
+    {
+      "command": "curl",
+      "description": "HTTP client",
+      "reason": "Data exfiltration risk",
+      "severity": "MEDIUM"
+    },
+    {
+      "command": "wget",
+      "description": "HTTP download",
+      "reason": "Data exfiltration risk",
+      "severity": "MEDIUM"
+    }
+  ],
+  "contextual_rules": [
+    {
+      "directory": "/src/security",
+      "allowed_commands": ["cat", "ls", "grep", "python", "pytest"],
+      "blocked_commands": ["pip uninstall"],
+      "requires_approval": ["git push"]
+    },
+    {
+      "directory": "/.env",
+      "allowed_commands": ["cat"],
+      "blocked_commands": ["rm", "mv", "cp"],
+      "requires_approval": ["git", "pip"]
+    },
+    {
+      "directory": "/tests",
+      "allowed_commands": ["python", "pytest", "cat", "ls"],
+      "blocked_commands": [],
+      "requires_approval": []
+    }
+  ]
+}

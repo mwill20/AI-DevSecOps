@@ -1,101 +1,99 @@
 # AI Operation Center - .gitignore
+# Python 3.12+ Security Validator
 
-# Claude AI Agent Files (Internal AI operations)
-.claude/
-.claudeignore
+# =============================================================================
+# PYTHON
+# =============================================================================
 
-# Node.js Dependencies
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-package-lock.json
-yarn.lock
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
 
-# Build Outputs
-dist/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
 build/
-out/
-*.tsbuildinfo
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Environment Variables
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Type checkers
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+
+# Ruff
+.ruff_cache/
+
+# =============================================================================
+# ENVIRONMENT & SECRETS
+# =============================================================================
+
 .env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*.local
+*.pem
+*.key
+secrets/
 
-# IDE and Editor Files
+# =============================================================================
+# IDE & EDITORS
+# =============================================================================
+
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
-.DS_Store
-Thumbs.db
+.spyderproject
+.spyproject
 
-# Logs
-logs/
-*.log
+# =============================================================================
+# OS FILES
+# =============================================================================
 
-# Runtime Data
-pids/
-*.pid
-*.seed
-*.pid.lock
-
-# Coverage Directory Used by Tools
-coverage/
-*.lcov
-.nyc_output/
-
-# Dependency Directories
-jspm_packages/
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
-.eslintcache
-
-# Microbundle cache
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
-
-# Optional REPL history
-.node_repl_history
-
-# Output of 'npm pack'
-*.tgz
-
-# Yarn Integrity file
-.yarn-integrity
-
-# parcel-bundler cache (https://parceljs.org/)
-.cache
-.parcel-cache
-
-# Next.js build output
-.next
-
-# Nuxt.js build / generate output
-.nuxt
-
-# Gatsby files
-.cache/
-public
-
-# Storybook build outputs
-.out
-.storybook-out
-
-# Temporary folders
-tmp/
-temp/
-
-# OS generated files
 .DS_Store
 .DS_Store?
 ._*
@@ -103,145 +101,87 @@ temp/
 .Trashes
 ehthumbs.db
 Thumbs.db
+desktop.ini
 
-# Test files (keeping only the main adversarial test)
-test_vulnerability.js
+# =============================================================================
+# LOGS & TEMP
+# =============================================================================
+
+logs/
+*.log
+tmp/
+temp/
+*.tmp
+
+# =============================================================================
+# AI AGENT FILES
+# =============================================================================
+
+.claude/
+.claudeignore
+.windsurf/
+
+# =============================================================================
+# PROJECT-SPECIFIC IGNORES
+# =============================================================================
+
+# Old test files (cleaned up)
 test_vulnerability.py
+test_vulnerability.js
 test_vulnerability.tsx
 adversarial_test.ts
+adversarial_test.mjs
 adversarial_test_simple.js
 adversarial_test_enhanced.mjs
+adversarial_test_3layer.mjs
 
-# Agent OS working files (keeping only config and product specs)
+# Agent OS working directories
 agent-os/commands/
 agent-os/specs/
 agent-os/standards/
 
-# Working directories that might be created during development
-workspace/
-.working/
+# Security scan artifacts
+.scan-results/
+.vulnerability-reports/
+security_audit.log
 
-# Backup files
-*.bak
-*.backup
-*.old
+# =============================================================================
+# LARGE / BINARY FILES
+# =============================================================================
 
-# Local configuration files (keeping examples)
-*.local
-local.*
+# Archives
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.tgz
+
+# AI model files
+*.model
+*.pkl
+*.joblib
+*.h5
+*.pb
+*.onnx
 
 # Database files
 *.db
 *.sqlite
 *.sqlite3
 
-# Cache directories
-.cache/
-.parcel-cache/
+# =============================================================================
+# DOCUMENTATION ARTIFACTS
+# =============================================================================
 
-# Generated documentation (keeping source docs)
 docs/generated/
 api-docs/
+site/
 
-# Performance monitoring files
-.perf/
-.benchmark/
+# =============================================================================
+# LEGACY NODE.JS (removed but keep ignores for safety)
+# =============================================================================
 
-# Security scanning artifacts (keeping source code)
-.scan-results/
-.vulnerability-reports/
-
-# AI model files (large, not needed for readers)
-*.model
-*.pkl
-*.joblib
-*.h5
-*.pb
-
-# Large binary files
-*.zip
-*.tar.gz
-*.rar
-*.7z
-
-# Audio/Video files
-*.mp3
-*.mp4
-*.avi
-*.mov
-*.wmv
-
-# Image files (keeping diagrams/docs)
-*.jpg
-*.jpeg
-*.png
-*.gif
-*.bmp
-*.svg
-*.ico
-
-# Font files
-*.ttf
-*.otf
-*.woff
-*.woff2
-
-# PDF files (keeping documentation)
-*.pdf
-
-# Microsoft Office
-*.doc
-*.docx
-*.xls
-*.xlsx
-*.ppt
-*.pptx
-
-# Keep important project files
-!README.md
-!LICENSE
-!PRD_AI_Operation_Center.md
-!Agentic_Workflow.md
-
-# Keep source code
-!src/
-!src/**/*.ts
-!src/**/*.tsx
-!src/**/*.js
-!src/**/*.jsx
-
-# Keep lessons
-!Lessons/
-!Lessons/**/*.md
-
-# Keep configuration
-!package.json
-!tsconfig.json
-!webpack.config.js
-!rollup.config.js
-!.babelrc
-!.eslintrc.js
-!.prettierrc
-
-# Keep test files
-!adversarial_test_3layer.mjs
-!jest.config.js
-!test/
-
-# Keep agent OS essential files
-!agent-os/config.yml
-!agent-os/product/
-
-# Keep documentation
-!src/security/README.md
-!src/security/tech_spec.md
-!src/security/design/
-!src/security/types/
-
-# Keep demo files
-!src/security/demo.ts
-!src/security/ui/
-
-# Keep project structure files
-!.gitignore
-!.gitattributes
+node_modules/
+package-lock.json
+yarn.lock
+*.tsbuildinfo

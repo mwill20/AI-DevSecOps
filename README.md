@@ -1,24 +1,108 @@
-# 🚀 AI Operation Center
+# 🛡️ AI Operation Center
 
-A **comprehensive 4-layer AI-DevSecOps governance platform** that transforms how organizations secure AI-generated code through deterministic, semantic, policy, and operational guardrails.
+A **Python 3.12+ Hybrid Governance Platform** combining deterministic security analysis with AI-powered reasoning, persistence, and observability.
 
 ## 🎯 Overview
 
-The AI Operation Center implements a **revolutionary security mesh** that protects against both traditional vulnerabilities and AI-specific threats. Unlike traditional security tools that only scan for patterns, our system understands code intent, enforces business compliance, and protects operational security.
+The AI Operation Center implements a **5-layer security mesh** that protects against both traditional vulnerabilities and AI-specific threats. It combines:
+- **Deterministic analysis** (AST, regex) for known patterns
+- **AI reasoning** (DeepSeek-R1 via Ollama) for contextual understanding
+- **Persistence** (SQLite SOC Ledger) for audit trails & **Shadow Code detection**
+- **Observability** (CLI Dashboard) with **Semantic Drift** tracking
 
-## 🏗️ 4-Layer Security Architecture
+**Key features**:
+- `sys.exit(1)` on CRITICAL violations (CI/CD ready)
+- **Taint Handshake**: AST provides "bones", LLM provides "meat"
+- **Shadow Code Detection**: Flags unauthorized AI modifications
+- **Cryptographic Provenance**: Verifiable chain of custody
 
-### **🔍 Layer 1: Deterministic Guardrails**
-Pattern-based detection for known vulnerability patterns using OWASP LLM Top 10 standards.
+## 🏗️ Architecture
 
-### **🧠 Layer 2: Semantic Guardrails** 
-AST-based code analysis that understands intent and tracks tainted data flow.
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    HYBRID GOVERNANCE PLATFORM                    │
+├─────────────────────────────────────────────────────────────────┤
+│  Layer 1: Deterministic │ Compiled regex (OWASP LLM Top 10)     │
+│  Layer 2: Semantic      │ Python ast module (taint analysis)    │
+│  Layer 3: Operational   │ ShellGuard (shlex + subprocess)       │
+│  Layer 4: AI Auditor    │ DeepSeek-R1 + Pydantic guardrails     │
+│  Layer 5: Persistence   │ SQLite SOC Ledger + Provenance Chain  │
+├─────────────────────────────────────────────────────────────────┤
+│  Observability: CLI Dashboard │ Memory, Duration, Violators     │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-### **⚖️ Layer 3: Policy Guardrails**
-Business compliance enforcement for GDPR, PCI DSS, and organizational policies.
+| Layer | Name | Technology | Purpose |
+|-------|------|------------|---------|
+| 1 | **Deterministic** | Compiled regex | Pattern-based vulnerability detection |
+| 2 | **Semantic** | Python `ast` | Taint analysis & data flow tracking |
+| 3 | **Operational** | `shlex` + `subprocess` | Shell command protection |
+| 4 | **AI Auditor** | Ollama + Pydantic | LLM reasoning with schema guardrails |
+| 5 | **Persistence** | SQLite | SOC Ledger, provenance, human sign-off |
 
-### **🔒 Layer 4: Operational Guardrails**
-Shell command interception and system protection against dangerous operations.
+---
+
+## 🚀 Quick Start
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/mwill20/AI-Operation-Center.git
+cd AI-Operation-Center
+
+# Create virtual environment
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1  # Windows
+# source .venv/bin/activate   # Linux/Mac
+
+# Install in development mode
+pip install -e .
+```
+
+### Run Security Scan
+
+```bash
+# Scan a file
+python -m security_py app.py
+
+# Scan a directory
+python -m security_py src/
+
+# Run the demo
+python -m security_py.demo
+
+# Run adversarial tests (41 tests)
+pytest tests/adversarial_suite.py -v
+
+# Run logic bomb detection tests (16 tests)
+pytest tests/test_logic_bomb_detection.py -v
+
+# View SOC Dashboard
+python -m security_py.core.observability
+
+# Verify AI Model Supply Chain
+python scripts/model_verify.py --canary
+```
+
+### Example Output
+
+```
+🔍 Layer 1: Deterministic Pattern Matching
+   Found 8 deterministic violations
+🧠 Layer 2: Semantic AST Analysis
+   Found 0 semantic violations
+🔒 Layer 3: Operational Guardrails
+   Found 0 operational violations
+
+============================================================
+🚨 CRITICAL SECURITY VIOLATIONS DETECTED
+============================================================
+1. [CRITICAL] LLM06: LLM06-001
+   File: app.py:6
+   Hardcoded sensitive information detected
+   Fix: Move sensitive data to environment variables
+```
 
 ---
 
@@ -26,365 +110,357 @@ Shell command interception and system protection against dangerous operations.
 
 ```
 AI-Operation-Center/
-├── 📚 Lessons/                          # Complete 8-lesson AI-DevSecOps curriculum
-│   ├── Lesson00_Intro.md               # Introduction to 4-layer security
-│   ├── Lesson01_Patterns.md             # Deterministic layer (patterns)
-│   ├── Lesson02_ScanEngine.md           # ScanEngine logic
-│   ├── Lesson03_Orchestration.md       # EnhancedSecurityValidator
-│   ├── Lesson04_AuditLogging.md         # Immutable audit trails
-│   ├── Lesson05_Testing.md              # Testing & debugging
-│   ├── Lesson06_AST_Semantics.md        # Semantic layer (NEW)
-│   ├── Lesson07_Policy_Engine.md        # Policy layer (NEW)
-│   └── Lesson08_Shell_Ops.md            # Operational layer (NEW)
-├── 🛡️ src/security/                     # Core 4-layer security system
+├── src/security_py/              # Python security engine
 │   ├── core/
-│   │   ├── EnhancedSecurityValidator.ts # 4-layer orchestration
-│   │   ├── SemanticAnalyzer.ts          # Layer 2: AST analysis
-│   │   ├── PolicyEngine.ts              # Layer 3: Business compliance
-│   │   ├── ShellInterceptor.ts          # Layer 4: Operational protection
-│   │   ├── ScanEngine.ts                # Layer 1: Pattern matching
-│   │   ├── SecurityValidator.ts         # Original validator
-│   │   └── AuditLogger.ts               # Immutable audit trails
-│   ├── types/SecurityViolation.ts        # Data structures
-│   ├── ui/TerminalModal.tsx             # Hard Guardrail Modal
-│   └── design/semantic-policy-guardrails.md # Implementation design
-├── 🧪 adversarial_test_3layer.mjs       # Comprehensive 4-layer testing
-├── 📋 PRD_AI_Operation_Center.md        # Product requirements
-└── 🤖 agent-os/                         # AI agent orchestration system
+│   │   ├── scan_engine.py        # Layer 1: Pattern matching
+│   │   ├── taint_visitor.py      # Layer 2: AST taint analysis
+│   │   ├── shell_guard.py        # Layer 3: Shell protection
+│   │   ├── ai_auditor.py         # Layer 4: LLM + Pydantic
+│   │   ├── soc_ledger.py         # Layer 5: SQLite persistence
+│   │   ├── observability.py      # CLI Dashboard
+│   │   └── security_validator.py # Orchestrator
+│   ├── types/violations.py       # Data structures
+│   └── policies/allow_list.json  # Shell command allow list
+├── tests/
+│   ├── adversarial_suite.py      # 41 adversarial tests
+│   └── test_logic_bomb_detection.py  # Advanced threat tests
+├── Lessons_Python/               # 14 Python lessons (00-13)
+│   ├── Lesson00_Intro.md         # Introduction
+│   ├── Lesson01-08               # Core security
+│   ├── Lesson09_Hybrid_Security.md    # LLM + AST + Taint Handshake
+│   ├── Lesson10_Digital_Provenance.md # Chain of custody + Forensic Lab
+│   ├── Lesson11_SOC_Observability.md  # Monitoring
+│   ├── Lesson12_Debugging.md          # Taint traces & diagnostics
+│   └── Lesson13_Model_Bridge.md       # AI Supply Chain & Provenance
+├── scripts/
+│   └── model_verify.py           # AI model supply chain verification
+├── pyproject.toml                # Package configuration
+└── requirements.txt              # Dependencies
 ```
 
 ---
 
-## 🚀 Key Features
+## 🐍 Python API Usage
 
-### **🛡️ 4-Layer Security Mesh**
-- **Deterministic**: Pattern-based vulnerability detection
-- **Semantic**: AST analysis for code intent understanding
-- **Policy**: Business compliance and governance enforcement
-- **Operational**: Shell command interception and system protection
+### Basic Scanning
 
-### **🧠 AI-Specific Threat Protection**
-- **Prompt Injection Detection** (LLM01)
-- **Sensitive Information Disclosure** (LLM06)
-- **AI Agent Attribution** - Track which AI introduced violations
-- **Obfuscation Protection** - Catch renamed secrets and hidden patterns
+```python
+from security_py import SecurityValidator
 
-### **⚖️ Business Compliance**
-- **GDPR Enforcement** - Personal data protection
-- **PCI DSS Compliance** - Credit card data security
-- **SOX Requirements** - Financial data protection
-- **Organizational Policies** - Custom business rules
+# Create validator (exits on CRITICAL by default)
+validator = SecurityValidator()
 
-### **🔒 Operational Security**
-- **Shell Command Blocking** - Prevent dangerous system operations
-- **Privilege Escalation Prevention** - Block sudo and admin abuse
-- **Contextual Rules** - Directory-specific restrictions
-- **Command Validation** - Argument checking and approval
+# Validate a file
+result = validator.validate_file("app.py")
 
-### **📚 Complete Education System**
-- **8 Comprehensive Lessons** - From novice to AI-DevSecOps expert
-- **Interview Preparation** - AI-specific security questions
-- **Manual Verification** - Hands-on testing exercises
-- **Real-World Examples** - Practical implementation guidance
+# Check results
+print(f"Passed: {result.passed}")
+print(f"Violations: {result.total_violations}")
+```
+
+### AI-Augmented Auditing
+
+```python
+from security_py.core import AIAuditor, SecurityValidator
+
+# Create hybrid validator
+validator = SecurityValidator()
+auditor = AIAuditor()  # Connects to Ollama
+
+# Scan with AST first
+result = validator.validate_content(code, context)
+
+# Augment with LLM reasoning
+audit = auditor.audit(code, result.violations, context)
+
+print(f"Decision: {audit.decision}")  # APPROVE, REJECT, MANUAL_REVIEW
+print(f"Reasoning: {audit.reasoning}")
+print(f"Confidence: {audit.confidence}")
+```
+
+### SOC Ledger (Persistence)
+
+```python
+from security_py.core import SOCLedger
+
+# Log scans with agent attribution
+ledger = SOCLedger()
+record = ledger.log_scan(
+    agent_id="windsurf-cascade",
+    source_file="app.py",
+    content=code,
+    violation_count=3,
+    passed=False,
+)
+
+# Add human sign-off
+signoff_hash = ledger.add_human_signoff(
+    scan_id=record.id,
+    approver_id="alice@company.com",
+    justification="False positive - test file"
+)
+
+# Chain of custody
+provenance = ledger.approve_file(
+    file_path="app.py",
+    content=code,
+    approved_by="security-bot",
+)
+
+# Verify provenance
+is_valid, msg = ledger.verify_provenance("app.py", code)
+```
+
+### Observability Dashboard
+
+```python
+from security_py.core import ObservabilityDashboard, SOCLedger
+
+dashboard = ObservabilityDashboard(SOCLedger())
+
+# Track memory during scan
+dashboard.start_memory_tracking()
+result = validator.validate_directory("src/")
+metrics = dashboard.record_scan_metrics(duration_ms=45.2)
+
+# Show dashboard
+dashboard.show_dashboard()
+
+# Get most frequent violator
+dashboard.print_most_frequent_violator()
+```
 
 ---
 
-## 🎯 Quick Start
+## 🔍 What It Detects
 
-### **🧪 Test the 4-Layer System**
+### Layer 1: Deterministic (OWASP LLM Top 10)
+
+| Pattern | Category | Severity |
+|---------|----------|----------|
+| Hardcoded secrets | LLM06 | CRITICAL |
+| API key patterns (sk-, ghp_, etc.) | LLM06 | CRITICAL |
+| `eval()` usage | LLM02 | CRITICAL |
+| `os.system()` | CMD-001 | CRITICAL |
+| `subprocess` with `shell=True` | CMD-002 | CRITICAL |
+| `pickle.load()` | CODE-EXEC | HIGH |
+| SQL injection patterns | SQL-001 | CRITICAL |
+
+### Layer 2: Semantic (AST Taint Analysis)
+
+- **Source tracking**: `input()`, `os.environ`, file reads
+- **Sink detection**: `print()`, `logging`, `subprocess`
+- **Taint propagation**: Tracks data through variable assignments
+- **Multi-hop flows**: `secret → x → y → print(y)`
+
+### Layer 3: Operational (Shell Protection)
+
+| Command | Status | Risk |
+|---------|--------|------|
+| `rm`, `rmdir` | ❌ Blocked | DATA_DESTRUCTION |
+| `sudo`, `su` | ❌ Blocked | PRIVILEGE_ESCALATION |
+| `chmod`, `chown` | ❌ Blocked | SECURITY_BYPASS |
+| `curl`, `wget` | ❌ Blocked | EXTERNAL_REQUEST |
+| `ls`, `cat`, `git` | ✅ Allowed | - |
+| `python`, `pip` | ✅ Allowed | - |
+
+### Layer 4: AI Auditor (Reasoning Detective)
+
+**Advanced Threat Detection**:
+| Type | Description | Severity |
+|------|-------------|----------|
+| `WASHED_SECRET` | Secret hashed with MD5/SHA1 then logged | CRITICAL |
+| `HIDDEN_STATE` | Code triggers on `os.getlogin()`, hostname | CRITICAL |
+| `LOGIC_BOMB` | Time-delayed payload (`datetime.now() > ...`) | CRITICAL |
+| `INSECURE_DECORATOR` | Auth decorators with env bypass | CRITICAL |
+| `BROKEN_AUTH` | Functions named `admin_*` without validation | HIGH |
+
+**Taint Handshake Protocol**:
+- AST provides: WHAT data flows WHERE (deterministic fact)
+- LLM provides: WHY it matters (semantic intent)
+- Decision matrix: `AUTO_BLOCKED`, `NEEDS_HUMAN_REVIEW`, `AUTO_APPROVED`
+
+### Layer 5: Persistence & Shadow Code Detection
+
+- **Scan Records**: Agent attribution, human sign-off tracking
+- **Provenance Chain**: Cryptographic hash linking all approvals
+- **Shadow Code Detection**: Flags files modified without human approval
+- **Cryptographic Proofs**: Verifiable scan certificates
+
+```python
+from security_py.core import SOCLedger, ProvenanceStatus
+
+# Detect unauthorized AI modifications (Shadow Code)
+status, message, record = ledger.verify_provenance_with_status("app.py", content)
+
+if status == ProvenanceStatus.SHADOW_CODE:
+    print("🚨 CRITICAL: File modified without human approval!")
+    # status can be: VERIFIED, SHADOW_CODE, MODIFIED_APPROVED, NO_RECORD
+```
+
+### Semantic Drift (Red Team Radar)
+
+Track divergence between AI and AST findings:
+
+```python
+from security_py.core import ObservabilityDashboard
+
+dashboard = ObservabilityDashboard()
+
+# Record drift events
+dashboard.record_semantic_drift(
+    ast_found_threat=True,
+    ai_found_threat=False,  # AI missed what AST found
+    ast_category="TAINT_FLOW"
+)
+
+# Get metrics
+drift = dashboard.get_semantic_drift_metrics()
+print(f"AI Drift Rate: {drift.ai_drift_rate}%")  # AI finding novel threats
+print(f"AST Drift Rate: {drift.ast_drift_rate}%")  # AI blind spots
+print(f"Direction: {drift.drift_direction}")  # AI_LEADING or AST_LEADING
+```
+
+---
+
+## 🧪 Testing
 
 ```bash
-# Clone the repository
-git clone https://github.com/mwill20/AI-Operation-Center.git
-cd AI-Operation-Center
+# Run all 41 adversarial tests
+pytest tests/adversarial_suite.py -v
 
-# Run comprehensive 4-layer testing
-node adversarial_test_3layer.mjs
+# Run with coverage
+pytest tests/adversarial_suite.py --cov=security_py --cov-report=html
+
+# Run specific test class
+pytest tests/adversarial_suite.py::TestSemanticLayer -v
 ```
 
-**Expected Results:**
-```
-🎯 3-LAYER AI-DEVSECOPS ADVERSARIAL TEST
-✅ Semantic Layer: Detects renamed secrets and tainted data flows
-✅ Policy Layer: Enforces business rules and compliance requirements  
-✅ Operational Layer: Blocks dangerous shell commands
-✅ Integration: All layers feed into Hard Guardrail Modal
-🚀 3-Layer AI-DevSecOps System: READY FOR PRODUCTION!
-```
+### Test Categories
 
-### **📚 Start Learning**
-
-Begin your AI-DevSecOps journey with the comprehensive curriculum:
-
-1. **Start Here**: `Lessons/Lesson00_Intro.md` - Introduction to 4-layer security
-2. **Layer 1**: `Lessons/Lesson01_Patterns.md` - Deterministic pattern matching
-3. **Advanced Layers**: `Lessons/Lesson06_AST_Semantics.md` through `Lesson08_Shell_Ops.md`
-
-### **🛠️ Integration Example**
-
-```typescript
-import { EnhancedSecurityValidator } from './src/security/core/EnhancedSecurityValidator';
-
-// Initialize 4-layer security validator
-const validator = new EnhancedSecurityValidator({
-  scanScope: 'FULL',
-  realTimeStreaming: true,
-  overrideAuthority: 'security',
-  auditLogging: true,
-  enableBackgroundScanning: true,
-  maxScanDuration: 300,
-  enableSemanticAnalysis: true,      // Layer 2
-  enablePolicyEnforcement: true,     // Layer 3
-  enableOperationalGuardrails: true  // Layer 4
-});
-
-// Validate phase transition with all 4 layers
-const result = await validator.validatePhaseTransition(
-  'WINDSURF', 
-  'ANTI_GRAVITY', 
-  projectContext
-);
-
-console.log(`Layer Breakdown:`);
-console.log(`  Deterministic: ${result.layerBreakdown.deterministic} violations`);
-console.log(`  Semantic: ${result.layerBreakdown.semantic} violations`);
-console.log(`  Policy: ${result.layerBreakdown.policy} violations`);
-console.log(`  Operational: ${result.layerBreakdown.operational} violations`);
-console.log(`  Can Proceed: ${result.canProceed ? 'YES ✅' : 'NO 🚨'}`);
-```
+- **TestDeterministicLayer**: Hardcoded secrets, eval, os.system, pickle
+- **TestSemanticLayer**: Renamed secrets, multi-hop taint, env→print
+- **TestOperationalLayer**: rm, sudo, shell escapes, allow list
+- **TestEvasionAttempts**: Base64, string concat, exec bypass
+- **TestPolicyViolations**: Forbidden imports, empty except
+- **TestIntegration**: Multi-layer detection, scoring, reports
 
 ---
 
-## 🔍 What Makes This Different
+## 📚 Learning Path
 
-### **Traditional Security Tools**
-```
-Code → Pattern Scan → Basic Alert → Developer Notice
-```
+Complete 14-lesson curriculum in `Lessons_Python/`:
 
-### **Our 4-Layer AI-DevSecOps Platform**
-```
-Code → 4-Layer Security Mesh → Contextual Risk → Hard Guardrail → Business Decision
-```
-
-**Key Differences:**
-- **AI-Specific Threats**: Catches what AI agents introduce (prompt injection, data leakage)
-- **Code Intent Understanding**: AST analysis knows what code actually does
-- **Business Context**: Enforces compliance and organizational policies
-- **Operational Protection**: Guards the underlying system from dangerous commands
-- **Complete Education**: 8-lesson curriculum for team training
-
----
-
-## 🎓 Use Cases
-
-### **🏢 Enterprise AI Development**
-- **Multi-AI Environments**: Track violations from Windsurf, Anti-Gravity, VS Code
-- **Compliance Requirements**: Automatic GDPR, PCI DSS, SOX enforcement
-- **Audit Readiness**: Complete immutable audit trails for regulators
-
-### **🚀 Startups with AI**
-- **Rapid Development**: Security doesn't slow down AI innovation
-- **Investor Confidence**: Demonstrates serious security practices
-- **Team Training**: Complete curriculum for developer onboarding
-
-### **🎓 Educational Institutions**
-- **AI Security Education**: 8-lesson comprehensive curriculum
-- **Research Platform**: Study AI-specific security patterns
-- **Hands-On Learning**: Manual verification and testing exercises
+| Lesson | Topic | Key Concept |
+|--------|-------|-------------|
+| 00 | Introduction | Hybrid governance platform |
+| 01 | Patterns | OWASP LLM as dataclasses |
+| 02 | ScanEngine | Compiled regex scanning |
+| 03 | Orchestration | SecurityValidator |
+| 04 | Audit Logging | Hash-chained records |
+| 05 | Testing | Adversarial test design |
+| 06 | AST Semantics | TaintVisitor |
+| 07 | Policy Engine | Business rules |
+| 08 | Shell Ops | ShellGuard |
+| **09** | **Hybrid Security** | **Taint Handshake protocol** |
+| **10** | **Digital Provenance** | **Chain of custody + Forensic Lab** |
+| **11** | **SOC Observability** | **Semantic Drift tracking** |
+| **12** | **Debugging** | **Taint traces & diagnostics** |
+| **13** | **Model Bridge** | **AI Supply Chain & Provenance** |
 
 ---
 
-## 📊 Performance & Scalability
+## 🐛 Debugging
 
-### **🔍 Scanning Performance**
-- **Layer 1 (Deterministic)**: <5 seconds for typical projects
-- **Layer 2 (Semantic)**: <30 seconds for AST analysis
-- **Layer 3 (Policy)**: <10 seconds for compliance checks
-- **Layer 4 (Operational)**: <1 second for command validation
+The `SecurityDebugger` provides comprehensive diagnostics:
 
-### **📈 Scalability**
-- **Project Size**: Handle projects up to 100K+ lines of code
-- **Concurrent Users**: Support 100+ developers
-- **Violation Storage**: Maintain 10M+ violation records
-- **Audit Trail**: Immutable storage for 7+ years
+```python
+from security_py.core import SecurityDebugger, DebugLevel
 
----
+# Create debugger with desired verbosity
+debugger = SecurityDebugger(level=DebugLevel.VERBOSE)
 
-## 🔧 Configuration
+# Start debug session
+debugger.start_scan("app.py")
 
-### **Environment Variables**
+# ... run your scan ...
+
+# Get the report
+report = debugger.end_scan()
+debugger.print_report()
+
+# Export to JSON
+report.to_json()
+```
+
+### Debug Levels
+
+| Level | Use Case |
+|-------|----------|
+| `OFF` | Production/CI |
+| `MINIMAL` | Errors only |
+| `NORMAL` | Errors + warnings |
+| `VERBOSE` | Detailed traces |
+| `TRACE` | Everything (very verbose) |
+
+### CLI Debugging
+
 ```bash
-# 4-Layer Security Configuration
-ENABLE_SEMANTIC_ANALYSIS=true
-ENABLE_POLICY_ENFORCEMENT=true
-ENABLE_OPERATIONAL_GUARDRAILS=true
+# Debug a file with verbose output
+python -m security_py.core.debugger app.py --level VERBOSE
 
-# Audit Logging
-AUDIT_LOG_PATH=./logs
-AUDIT_ENCRYPTION_KEY=your-encryption-key
+# Export debug report
+python -m security_py.core.debugger app.py --output debug.json
 
-# Policy Engine
-POLICY_FILE_PATH=./src/security/policies/governance_policy.json
-
-# Shell Interceptor
-SHELL_ALLOW_LIST_PATH=./src/security/policies/shell_allow_list.json
-```
-
-### **Policy Configuration**
-```json
-{
-  "version": "1.0.0",
-  "enforcementMode": "STRICT",
-  "policies": {
-    "dependency_control": {
-      "enabled": true,
-      "blocked_libraries": ["request", "eval", "vm2"]
-    },
-    "data_protection": {
-      "enabled": true,
-      "personal_data_fields": ["ssn", "creditcard", "email"]
-    }
-  }
-}
+# Show human-readable explanations
+python -m security_py.core.debugger app.py --explain
 ```
 
 ---
 
-## 🧪 Testing & Validation
+## 🔧 CI/CD Integration
 
-### **Layer-Specific Testing**
+```yaml
+# GitHub Actions
+- name: Security Scan
+  run: |
+    pip install -e .
+    python -m security_py src/
+  # Fails pipeline if CRITICAL violations found (exit code 1)
+```
+
 ```bash
-# Test semantic analysis (renamed secrets)
-node -e "
-const { SemanticAnalyzer } = require('./src/security/core/SemanticAnalyzer');
-// Test AST-based code understanding
-"
-
-# Test policy engine (forbidden libraries)
-node -e "
-const { PolicyEngine } = require('./src/security/core/PolicyEngine');
-// Test business compliance enforcement
-"
-
-# Test operational guardrails (shell commands)
-node -e "
-const { ShellInterceptor } = require('./src/security/core/ShellInterceptor');
-// Test command interception
-"
+# Pre-commit hook
+#!/bin/bash
+python -m security_py . || exit 1
 ```
 
-### **Integration Testing**
+---
+
+## 🤖 AI Integration (Optional)
+
+To enable AI-augmented auditing:
+
 ```bash
-# Full 4-layer integration test
-node adversarial_test_3layer.mjs
+# Install Ollama
+curl -fsSL https://ollama.com/install.sh | sh
 
-# Individual layer tests
-node adversarial_test_enhanced.mjs
+# Pull DeepSeek-R1 model
+ollama pull deepseek-r1:14b
+
+# Start Ollama server
+ollama serve
 ```
 
----
-
-## 📚 Documentation
-
-### **🎓 Learning Path**
-1. **Introduction**: `Lessons/Lesson00_Intro.md`
-2. **Deterministic Layer**: `Lessons/Lesson01_Patterns.md`, `Lesson02_ScanEngine.md`
-3. **Orchestration**: `Lessons/Lesson03_Orchestration.md`
-4. **Advanced Layers**: `Lessons/Lesson06_AST_Semantics.md` - `Lesson08_Shell_Ops.md`
-
-### **🔧 Technical Documentation**
-- **Architecture**: `src/security/design/semantic-policy-guardrails.md`
-- **API Reference**: `src/security/core/` (individual class documentation)
-- **Data Structures**: `src/security/types/SecurityViolation.ts`
-
-### **📋 Product Documentation**
-- **Requirements**: `PRD_AI_Operation_Center.md`
-- **Tech Spec**: `src/security/tech_spec.md`
-
----
-
-## 🚀 Roadmap
-
-### **✅ Version 1.0 (Current)**
-- ✅ 4-layer security mesh implementation
-- ✅ Complete 8-lesson curriculum
-- ✅ Comprehensive testing suite
-- ✅ Hard Guardrail Modal integration
-
-### **🔄 Version 1.1 (Planned)**
-- 🔄 Machine Learning pattern discovery
-- 🔄 Custom policy marketplace
-- 🔄 Mobile security checkpoint app
-- 🔄 Advanced reporting dashboard
-
-### **🎯 Version 2.0 (Future)**
-- 🎯 Distributed architecture
-- 🎯 Real-time threat intelligence
-- 🎯 Automated remediation
-- 🎯 Cross-project correlation
-
----
-
-## 🤝 Contributing
-
-### **🛡️ Security-First Contribution**
-All contributions must maintain the 4-layer security architecture and zero-trust principles.
-
-### **📚 Educational Contributions**
-Help expand the curriculum with new AI-DevSecOps patterns and real-world examples.
-
-### **🧪 Testing Contributions**
-Add new adversarial tests for emerging AI-specific threats and attack patterns.
-
----
-
-## 📞 Support
-
-### **🐛 Bug Reports**
-Report security vulnerabilities and bugs via GitHub Issues with detailed reproduction steps.
-
-### **📚 Documentation**
-For comprehensive documentation, see the `Lessons/` directory for structured learning.
-
-### **🎓 Training**
-Request AI-DevSecOps training for your team by opening an issue with "Training Request" label.
+The AI Auditor will automatically detect Ollama and enable hybrid analysis.
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT License - see LICENSE file for details.
 
 ---
 
-## 🏆 Recognition
-
-This **4-Layer AI-DevSecOps Security Mesh** represents a breakthrough in AI security governance:
-
-🥇 **First** to combine deterministic, semantic, policy, and operational guardrails  
-🥇 **First** to provide comprehensive AI-DevSecOps education curriculum  
-🥇 **First** to implement AI agent attribution and accountability  
-🥇 **First** to protect against AI-specific operational threats  
-
----
-
-## 🚀 Get Started Now
-
-```bash
-# Clone and start your AI-DevSecOps journey
-git clone https://github.com/mwill20/AI-Operation-Center.git
-cd AI-Operation-Center
-node adversarial_test_3layer.mjs
-
-# Begin learning
-open Lessons/Lesson00_Intro.md
-```
-
-**Transform your AI security from pattern-matching to comprehensive governance!** 🛡️🚀
-
----
-
-*AI Operation Center - Version 1.0*  
-*4-Layer AI-DevSecOps Security Mesh*  
-*Education-First Security Platform*
+*AI Operation Center v3.0 - Hybrid Governance Platform*  
+*5-Layer AI-DevSecOps Security Mesh with LLM Reasoning*
