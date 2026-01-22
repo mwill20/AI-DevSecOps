@@ -2,7 +2,7 @@
 
 ## Overview
 
-The AI Operation Center is a **5-layer security mesh** that combines deterministic analysis with AI-powered reasoning, persistence, and observability. It features **Taint Handshake** protocol, **Shadow Code detection**, and **Semantic Drift** monitoring.
+The AI DevSecOps platform is a **5-layer security mesh** that combines deterministic analysis with AI-powered reasoning, persistence, and observability. It features **Taint Handshake** protocol, **Shadow Code detection**, and **Semantic Drift** monitoring.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐

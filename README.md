@@ -1,10 +1,10 @@
-# 🛡️ AI Operation Center
+# 🛡️ AI DevSecOps
 
 A **Python 3.12+ Hybrid Governance Platform** combining deterministic security analysis with AI-powered reasoning, persistence, and observability.
 
 ## 🎯 Overview
 
-The AI Operation Center implements a **5-layer security mesh** that protects against both traditional vulnerabilities and AI-specific threats. It combines:
+The AI DevSecOps platform implements a **5-layer security mesh** that protects against both traditional vulnerabilities and AI-specific threats. It combines:
 - **Deterministic analysis** (AST, regex) for known patterns
 - **AI reasoning** (DeepSeek-R1 via Ollama) for contextual understanding
 - **Persistence** (SQLite SOC Ledger) for audit trails & **Shadow Code detection**

@@ -10,7 +10,7 @@ readme = "src/security_py/README.md"
 requires-python = ">=3.12"
 license = {text = "MIT"}
 authors = [
-    {name = "AI Operation Center"}
+    {name = "ai-devsecops"}
 ]
 classifiers = [
     "Development Status :: 4 - Beta",

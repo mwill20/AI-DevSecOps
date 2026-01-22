@@ -1,8 +1,8 @@
-# 🎓 Lesson 00: The Briefing - Introduction to Hybrid Governance
+# 🎓 Lesson 00: Introduction to the AI DevSecOps Platform
 
 ## 🛡️ Welcome to the Hybrid Governance Platform!
 
-Hey there! 👋 I'm your Senior Security Mentor, and I'm thrilled to guide you through the **AI Operation Center** - a Python 3.12+ Hybrid Governance Platform that combines deterministic analysis with AI reasoning.
+Hey there! 👋 I'm your Senior Security Mentor, and I'm thrilled to guide you through the **AI DevSecOps Platform** - a Python 3.12+ Hybrid Governance Platform that combines deterministic analysis with AI reasoning.
 
 ### 🎯 **This IS DevSecOps - But Evolved for AI**
 
