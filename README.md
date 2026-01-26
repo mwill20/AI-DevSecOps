@@ -1,3 +1,8 @@
+
+<p align="center">
+    <img src="docs/AI%20DevSecOps.png" alt="AI DevSecOps Logo" width="400"/>
+</p>
+
 # 🛡️ AI DevSecOps
 
 A **Python 3.12+ Hybrid Governance Platform** combining deterministic security analysis with AI-powered reasoning, persistence, and observability.
