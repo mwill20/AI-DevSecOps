@@ -446,7 +446,7 @@ Congratulations! You've completed the AI-DevSecOps Security course!
 
 | Lesson | Topic | Key Takeaway |
 |--------|-------|--------------|
-| 00 | Introduction | 3-layer security mesh for AI code |
+| 00 | Introduction | 5-layer security mesh for AI code |
 | 01 | Patterns | OWASP LLM patterns as dataclasses |
 | 02 | ScanEngine | High-speed regex scanning |
 | 03 | Orchestration | SecurityValidator coordination |

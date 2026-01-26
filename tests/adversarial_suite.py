@@ -1,10 +1,12 @@
 """
 Adversarial Test Suite for Python Security Validator
 
-Tests all 3 layers of the security mesh:
+Tests all 5 layers of the security mesh:
 - Layer 1: Deterministic pattern matching
 - Layer 2: Semantic AST analysis (taint tracking)
 - Layer 3: Operational guardrails (shell command protection)
+- Layer 4: AI Auditor (LLM reasoning with Pydantic guardrails)
+- Layer 5: Persistence (SOC Ledger with cryptographic provenance)
 
 Run with: pytest tests/adversarial_suite.py -v
 """
@@ -526,7 +528,7 @@ except:
 # =============================================================================
 
 class TestIntegration:
-    """Integration tests for the complete 3-layer security mesh."""
+    """Integration tests for the complete 5-layer security mesh."""
 
     def test_all_layers_detect_complex_vulnerability(self, validator, context):
         """Complex vulnerability should be detected by multiple layers."""

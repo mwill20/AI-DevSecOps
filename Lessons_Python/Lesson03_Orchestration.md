@@ -3,39 +3,57 @@
 ## 🎯 Learning Objectives
 
 By the end of this lesson, you'll understand:
-- How the SecurityValidator orchestrates all 3 layers
+- How the SecurityValidator orchestrates all 5 layers
 - The validation flow from file to result
 - Exit behavior on CRITICAL violations
 
 ---
 
-## 🧠 The 3-Layer Orchestrator
+## 🧠 The 5-Layer Orchestrator
 
 The `SecurityValidator` is the brain that coordinates all security layers:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                     SecurityValidator                            │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐             │
-│  │ ScanEngine  │  │TaintVisitor │  │ ShellGuard  │             │
-│  │ (Layer 1)   │  │ (Layer 2)   │  │ (Layer 3)   │             │
-│  │ Patterns    │  │ AST Taint   │  │ Shell Ops   │             │
-│  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘             │
+│                                                                  │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐              │
+│  │ ScanEngine  │  │TaintVisitor │  │ ShellGuard  │              │
+│  │ (Layer 1)   │  │ (Layer 2)   │  │ (Layer 3)   │              │
+│  │ Patterns    │  │ AST Taint   │  │ Shell Ops   │              │
+│  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘              │
 │         │                │                │                      │
 │         └────────────────┼────────────────┘                      │
 │                          ▼                                       │
 │              ┌─────────────────────┐                            │
+│              │    AI Auditor       │  ← Layer 4 (Optional)      │
+│              │ LLM + Pydantic      │    Requires Ollama         │
+│              └──────────┬──────────┘                            │
+│                         ▼                                       │
+│              ┌─────────────────────┐                            │
+│              │    SOC Ledger       │  ← Layer 5 (Persistence)   │
+│              │ SQLite + Provenance │    Audit Trail             │
+│              └──────────┬──────────┘                            │
+│                         ▼                                       │
+│              ┌─────────────────────┐                            │
 │              │ EnhancedValidation  │                            │
 │              │      Result         │                            │
-│              └─────────────────────┘                            │
-│                          │                                       │
-│                          ▼                                       │
+│              └──────────┬──────────┘                            │
+│                         ▼                                       │
 │              ┌─────────────────────┐                            │
 │              │ sys.exit(1) if      │                            │
 │              │ CRITICAL found      │                            │
 │              └─────────────────────┘                            │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+| Layer | Component | Purpose | Required? |
+|-------|-----------|---------|-----------|
+| 1 | ScanEngine | Pattern matching (OWASP LLM Top 10) | Yes |
+| 2 | TaintVisitor | AST-based data flow tracking | Yes |
+| 3 | ShellGuard | Shell command protection | Yes |
+| 4 | AIAuditor | LLM reasoning with Pydantic guardrails | Optional |
+| 5 | SOCLedger | SQLite audit trail with provenance chain | Yes |
 
 ---
 
@@ -67,10 +85,14 @@ class ValidatorConfig:
     enable_deterministic: bool = True   # Layer 1
     enable_semantic: bool = True        # Layer 2
     enable_operational: bool = True     # Layer 3
+    enable_ai_auditor: bool = False     # Layer 4 (requires Ollama)
+    enable_persistence: bool = True     # Layer 5
     enforcement_mode: str = "STRICT"    # STRICT, ADVISORY, DISABLED
     exit_on_critical: bool = True       # sys.exit(1) on CRITICAL
     max_scan_duration_ms: int = 60000   # Timeout
     file_extensions: tuple[str, ...] = (".py",)
+    agent_id: str = "security-validator"  # For SOC Ledger attribution
+    db_path: str = "security_ledger.db"   # SQLite database path
 
 # Line 31: Layer breakdown tracking
 @dataclass
@@ -92,8 +114,12 @@ class LayerBreakdown:
 # Line 1: The main validator class
 class SecurityValidator:
     """
-    3-Layer Security Validator for Python code.
-    
+    5-Layer Hybrid Governance Validator for Python code.
+
+    Layers 1-3: Core (deterministic, semantic, operational)
+    Layer 4: AI Auditor (optional, requires Ollama)
+    Layer 5: Persistence (SOC Ledger with provenance)
+
     Returns sys.exit(1) on any CRITICAL violation.
     """
 
@@ -332,7 +358,7 @@ def main():
     import argparse
     
     parser = argparse.ArgumentParser(
-        description="Python Security Validator - 3-Layer Security Mesh"
+        description="Python Security Validator - 5-Layer Security Mesh"
     )
     parser.add_argument("path", help="File or directory to scan")
     parser.add_argument("--no-exit", action="store_true",

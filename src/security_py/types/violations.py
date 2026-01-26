@@ -128,6 +128,14 @@ class OperationalViolation(SecurityViolation):
     shell_context: str = ""
 
 
+@dataclass(frozen=True)
+class PolicyViolation(SecurityViolation):
+    """Violation of an organizational policy (GRC compliance)."""
+    policy_id: str = ""
+    policy_name: str = ""
+    compliance_framework: str = ""  # e.g., "PCI-DSS", "HIPAA", "GDPR"
+
+
 @dataclass
 class ScanContext:
     """Context for a security scan."""

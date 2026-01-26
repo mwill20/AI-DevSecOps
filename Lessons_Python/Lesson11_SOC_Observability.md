@@ -446,7 +446,7 @@ Congratulations! You've completed the **Hybrid AI-DevSecOps Security** curriculu
 
 | Lesson | Topic | Key Takeaway |
 |--------|-------|--------------|
-| 00-08 | Core Security | 3-layer mesh (AST, patterns, shell) |
+| 00-08 | Core Security | 5-layer mesh (AST, patterns, shell, AI, persistence) |
 | 09 | Hybrid Security | LLM + AST with Pydantic guardrails |
 | 10 | Digital Provenance | Chain of custody with crypto hashes |
 | 11 | SOC Observability | Monitoring AI behavior in real-time |

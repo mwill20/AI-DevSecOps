@@ -1,12 +1,14 @@
 # 🛡️ Python Security Validator
 
-A native Python 3.12+ implementation of the 3-layer security mesh for AI-DevSecOps.
+A native Python 3.12+ implementation of the 5-layer security mesh for AI-DevSecOps.
 
 ## Features
 
 - **Layer 1: Deterministic** - High-speed pattern matching using compiled regex (OWASP LLM Top 10)
 - **Layer 2: Semantic** - AST-based taint analysis using Python's `ast` module
 - **Layer 3: Operational** - Shell command protection using `shlex` and `subprocess`
+- **Layer 4: AI Auditor** - LLM reasoning (DeepSeek-R1 via Ollama) with Pydantic guardrails
+- **Layer 5: Persistence** - SQLite SOC Ledger with cryptographic provenance chain
 
 ## Installation
 
@@ -65,6 +67,10 @@ security_py/
 │   ├── scan_engine.py    # Layer 1: Pattern matching
 │   ├── taint_visitor.py  # Layer 2: AST taint analysis
 │   ├── shell_guard.py    # Layer 3: Shell protection
+│   ├── ai_auditor.py     # Layer 4: LLM + Pydantic guardrails
+│   ├── soc_ledger.py     # Layer 5: SQLite persistence
+│   ├── observability.py  # CLI Dashboard
+│   ├── debugger.py       # Debugging utilities
 │   └── security_validator.py  # Orchestrator
 ├── types/
 │   └── violations.py     # Data structures

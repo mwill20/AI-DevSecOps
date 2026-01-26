@@ -4,7 +4,7 @@
 
 By the end of this lesson, you'll understand:
 - How to design adversarial test cases for security systems
-- The 3-layer test methodology
+- The 5-layer test methodology
 - Writing pytest-based security test suites
 
 ---

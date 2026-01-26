@@ -10,7 +10,7 @@ from .types.violations import ScanContext, Severity
 
 
 def main():
-    """Demonstrate the 3-layer security mesh."""
+    """Demonstrate the 5-layer security mesh."""
     print("=" * 60)
     print("🛡️ Python Security Validator Demo")
     print("=" * 60)

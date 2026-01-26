@@ -16,6 +16,7 @@ from .debugger import (
 from .ai_auditor import AIAuditor, LLMVulnerabilityResponse, AuditResult, AuditDecision
 from .soc_ledger import SOCLedger, ScanRecord, ProvenanceRecord, SecurityLevel
 from .observability import ObservabilityDashboard, PerformanceMetrics
+from .policy_engine import PolicyEngine, Policy, PolicyType, PolicyException, ORGANIZATION_POLICIES
 
 __all__ = [
     # Deterministic Layer
@@ -51,4 +52,10 @@ __all__ = [
     "ScanStep",
     "explain_violation",
     "create_debug_context",
+    # Policy Engine (GRC Compliance)
+    "PolicyEngine",
+    "Policy",
+    "PolicyType",
+    "PolicyException",
+    "ORGANIZATION_POLICIES",
 ]

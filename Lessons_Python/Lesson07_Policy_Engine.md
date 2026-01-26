@@ -440,6 +440,6 @@ import requests  # Policy violation: use httpx instead
 
 ## 🚀 Ready for Lesson 08?
 
-In the final lesson, we'll explore **Shell Operations** - how ShellGuard protects against command injection.
+In the next lesson, we'll explore **Shell Operations** - how ShellGuard protects against command injection.
 
 *Remember: Policies are the guardrails that keep AI (and humans) on the approved path!* 🛡️🐍

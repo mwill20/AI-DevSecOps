@@ -11,7 +11,7 @@ By the end of this lesson, you'll understand:
 
 ## 🔍 The Deterministic Layer
 
-The ScanEngine is **Layer 1** of our 3-layer security mesh. It uses compiled regex patterns for fast, deterministic scanning.
+The ScanEngine is **Layer 1** of our 5-layer security mesh. It uses compiled regex patterns for fast, deterministic scanning.
 
 ```
 ┌─────────────────────────────────────────────────────┐
