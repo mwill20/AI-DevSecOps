@@ -53,8 +53,8 @@ The AI DevSecOps platform implements a **5-layer security mesh** that protects a
 
 ```bash
 # Clone the repository
-git clone https://github.com/mwill20/AI-Operation-Center.git
-cd AI-Operation-Center
+git clone https://github.com/mwill20/AI-DevSecOps.git
+cd AI-DevSecOps
 
 # Create virtual environment
 python -m venv .venv
@@ -114,7 +114,7 @@ python scripts/model_verify.py --canary
 ## 📁 Project Structure
 
 ```
-AI-Operation-Center/
+AI-DevSecOps/
 ├── src/security_py/              # Python security engine
 │   ├── core/
 │   │   ├── scan_engine.py        # Layer 1: Pattern matching
@@ -467,5 +467,5 @@ MIT License - see LICENSE file for details.
 
 ---
 
-*AI Operation Center v3.0 - Hybrid Governance Platform*  
+*AI DevSecOps - Hybrid Governance Platform*  
 *5-Layer AI-DevSecOps Security Mesh with LLM Reasoning*
